@@ -14,3 +14,12 @@ export const postUrl = (url, title) => {
   return fetch('http://localhost:3001/api/v1/urls', init)
     .then(response => response.json())
 }
+
+export const deleteUrl = (id) => {
+  const init = { 
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" }
+  }
+  return fetch(`http://localhost:3001/api/v1/urls/${id}`, init)
+    .then(response => response.json())
+}
