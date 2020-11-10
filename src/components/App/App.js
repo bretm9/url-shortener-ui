@@ -3,7 +3,7 @@ import './App.css';
 import { getUrls } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
-
+import { deleteUrl } from '../../apiCalls'
 export class App extends Component {
   constructor(props) {
     super(props);
@@ -17,8 +17,17 @@ export class App extends Component {
     .then(data => this.setState({ urls: data.urls }))
   }
 
+  componentDidUpdate() {
+    getUrls()
+    .then(data => this.setState({ urls: data.urls }))
+  }
+
   addUrlToAppState = (urlToAdd) => {
     this.setState( { urls: [...this.state.urls, urlToAdd] })
+  }
+
+  handleDelete = (id) => {
+    deleteUrl(id)
   }
 
   render() {
@@ -29,7 +38,7 @@ export class App extends Component {
           <UrlForm addUrlToAppState={this.addUrlToAppState} />
         </header>
 
-        <UrlContainer urls={this.state.urls}/>
+        <UrlContainer urls={this.state.urls} addUrlToAppState={this.addUrlToAppState} handleDelete={this.handleDelete} />
       </main>
     );
   }
