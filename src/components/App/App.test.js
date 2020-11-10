@@ -27,14 +27,14 @@ describe('App', () => {
     }
   })
   test('should render a form', () => {
-    getUrls.mockResolvedValueOnce({ urls: mockUrls });
+    getUrls.mockResolvedValue({ urls: mockUrls });
     render(<App />)
     expect(screen.getByPlaceholderText('Title...')).toBeInTheDocument()
     expect(screen.getByPlaceholderText('URL to Shorten...')).toBeInTheDocument()
     expect(screen.getByTestId('submit-button')).toBeInTheDocument()
   })
   test('should render Urls cards', async () => {
-    getUrls.mockResolvedValueOnce({ urls: mockUrls });
+    getUrls.mockResolvedValue({ urls: mockUrls });
     render(<App />)
     const heading = await waitFor(() => screen.getByRole('heading', 'Awesome photo'))
     const url = await waitFor(() => screen.getByRole('link', 'http://localhost:3001/useshorturl/1'))
@@ -42,7 +42,7 @@ describe('App', () => {
     expect(url).toBeInTheDocument()
   })
   test('should be able to submit a form and see the newly created URL on the DOM', async () => {
-    getUrls.mockResolvedValueOnce({ urls: mockUrls });
+    getUrls.mockResolvedValue({ urls: mockUrls });
     postUrl.mockResolvedValueOnce(mockPostReturn)
     render(<App />)
     userEvent.type(screen.getByPlaceholderText('Title...'), 'titleTest')
