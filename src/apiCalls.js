@@ -21,5 +21,4 @@ export const deleteUrl = (id) => {
     headers: { "Content-Type": "application/json" }
   }
   return fetch(`http://localhost:3001/api/v1/urls/${id}`, init)
-    .then(response => response.json())
 }
