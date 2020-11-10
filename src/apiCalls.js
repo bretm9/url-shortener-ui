@@ -5,11 +5,11 @@ export const getUrls = () => {
 
 export const postUrl = (url, title) => {
   const init = { 
-    method: "GET",
+    method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: {
+    body: JSON.stringify({
       long_url: url, title: title
-    }
+    })
   }
   return fetch('http://localhost:3001/api/v1/urls', init)
     .then(response => response.json())
