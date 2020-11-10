@@ -1,6 +1,7 @@
 import React from 'react';
 import './UrlContainer.css';
 
+
 const UrlContainer = props => {
   const urlEls = props.urls.map((url, i) => {
     return (
@@ -8,6 +9,7 @@ const UrlContainer = props => {
         <h3>{url.title}</h3>
         <a href={url.short_url} target="blank">{url.short_url}</a>
         <p>{url.long_url}</p>
+        <button onClick={() => props.handleDelete(url.id)}>delete</button>
       </div>
     )
   });
