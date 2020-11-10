@@ -3,12 +3,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from './App';
 import userEvent from '@testing-library/user-event';
-import { getUrls } from '../../apiCalls'
+import { getUrls, postUrl } from '../../apiCalls'
 
 jest.mock('../../apiCalls.js')
 
 describe('App', () => {
   let mockUrls;
+  let mockPostReturn;
   beforeEach(() => {
     mockUrls = [
       {
@@ -17,7 +18,13 @@ describe('App', () => {
         short_url: "http://localhost:3001/useshorturl/1",
         title: "Awesome photo"
       }
-    ]
+    ];
+    mockPostReturn = {
+      long_url: "titleTest", 
+      title: "urlTest", 
+      id: 14, 
+      short_url: "http://localhost:3001/useshorturl/14"
+    }
   })
   test('should render a form', () => {
     getUrls.mockResolvedValueOnce({ urls: mockUrls });
@@ -33,5 +40,17 @@ describe('App', () => {
     const url = await waitFor(() => screen.getByRole('link', 'http://localhost:3001/useshorturl/1'))
     expect(heading).toBeInTheDocument()
     expect(url).toBeInTheDocument()
+  })
+  test('should be able to submit a form and see the newly created URL on the DOM', async () => {
+    getUrls.mockResolvedValueOnce({ urls: mockUrls });
+    postUrl.mockResolvedValueOnce(mockPostReturn)
+    render(<App />)
+    userEvent.type(screen.getByPlaceholderText('Title...'), 'titleTest')
+    userEvent.type(screen.getByPlaceholderText('URL to Shorten...'), 'urlTest')
+    userEvent.click(screen.getByText('Shorten Please!'))
+    const newCardTitle = await waitFor(() => screen.getByText('titleTest'))
+    const newCardUrl = await waitFor(() => screen.getByText('urlTest'))
+    expect(newCardTitle).toBeInTheDocument()
+    expect(newCardUrl).toBeInTheDocument()
   })
 })
