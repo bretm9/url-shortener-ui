@@ -18,9 +18,9 @@ describe('UrlContainer', () => {
     render(<UrlContainer urls={urls}/>)
   })
   test('should render a url title', () => {
-    expect(screen.getByRole('heading', 'Awesome photo'))
+    expect(screen.getByRole('heading', 'Awesome photo')).toBeInTheDocument()
   })
   test('should render a shortened url', () => {
-    expect(screen.getByRole('link', 'http://localhost:3001/useshorturl/1'))
+    expect(screen.getByRole('link', 'http://localhost:3001/useshorturl/1')).toBeInTheDocument()
   })
 })
