@@ -17,10 +17,10 @@ export class App extends Component {
     .then(data => this.setState({ urls: data.urls }))
   }
 
-  componentDidUpdate() {
-    getUrls()
-    .then(data => this.setState({ urls: data.urls }))
-  }
+  // componentDidUpdate() {
+  //   getUrls()
+  //   .then(data => this.setState({ urls: data.urls }))
+  // }
 
   addUrlToAppState = (urlToAdd) => {
     this.setState( { urls: [...this.state.urls, urlToAdd] })
