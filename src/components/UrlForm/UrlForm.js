@@ -17,6 +17,8 @@ class UrlForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    postUrl()
+      .then(data => console.log(data))
     this.clearInputs();
   }
 
