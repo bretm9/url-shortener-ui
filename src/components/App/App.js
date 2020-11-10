@@ -22,6 +22,13 @@ export class App extends Component {
   //   .then(data => this.setState({ urls: data.urls }))
   // }
 
+  // Currently deletion works except for the refreshing of the DOM
+
+  // Please give me feedback on how to refresh the DOM
+  // after deleting a card without putting setState in componentDidUpdate.
+  //  This breaks the app since setting state updates the component again and
+  // creates a memory leak.
+
   addUrlToAppState = (urlToAdd) => {
     this.setState( { urls: [...this.state.urls, urlToAdd] })
   }
